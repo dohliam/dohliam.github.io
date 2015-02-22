@@ -258,6 +258,10 @@ var tips = [
   {"n":"echo <i>string</i>", "d":"Prints the given string"},
   {"n":"timer", "d":"Opens a stopwatch timer"},
   {"n":"stopwatch", "d":"Same as <b>timer</b>"},
+  {"n":"sticky", "d":"An editable sticky note with local storage"},
+  {"n":"sticky -r", "d":"Clear sticky local storage"},
+  {"n":"notepad", "d":"Opens a editable lined notepad with persistent local storage"},
+  {"n":"notepad -r", "d":"Clear notepad local storage"},
   {"n":">", "d":"Redirect any command to first Google search result (e.g. > wpde Battle of Hastings)"},
   {"n":"time ", "d":"Print the current local time and date"},
   {"n":"time <i>locale</i>", "d":"Print the current time and date formatted for a specific language or locale"}
@@ -635,6 +639,49 @@ var tips = [
         if (shcut == "whoami") {
           o.innerHTML = "<table><tr><td>Browser code name: </td><td>" + navigator.appCodeName + "</tr><tr><td>Browser offical name: </td><td>" + navigator.appName + "</tr><tr><td>Browser Version: </td><td>" + navigator.appVersion + "</tr><tr><td>Java enabled? </td><td>" + navigator.javaEnabled() + "</tr><tr><td>Browser Language: </td><td>" + navigator.language + "</tr><tr><td>All languages in order of preference: </td><td>" + navigator.languages + "</tr><tr><td>Browser online? </td><td>" + navigator.onLine + "</tr><tr><td>Current operating system: </td><td>" + navigator.oscpu + "</tr><tr><td>Browser platform: </td><td>" + navigator.platform + "</tr><tr><td>User agent: </td><td>" + navigator.userAgent.replace(/\)/,")<br>") + "</td></tr></table>";
           y.value = "";
+          finished = "done";
+        }
+
+        if (shcut == "sticky") {
+          y.value = "";
+          if (/\s/.test(nub) == false) {
+            o.innerHTML = '<link href="http://fonts.googleapis.com/css?family=Reenie+Beanie" rel="stylesheet" type="text/css"><div style="width:350px; height:350px; background-color:#ffff88; font-family:\'Reenie Beanie\'; font-size:36px; border-bottom-right-radius: 60px 5px; transform: rotate(-3deg)" id="b" contenteditable="true"></div>';
+            if (localStorage.sticky) {
+              b["innerHTML"]=[localStorage.sticky];
+            } else {
+              b["innerHTML"]="This is an editable sticky. Type something to add notes here.";
+            }
+            window.b.setAttribute("oninput", "localStorage.sticky=b['innerHTML']");
+            window.b.focus();
+          } else if (/^\-r/.test(sterm) == true) {
+              localStorage.sticky = "";
+              o.innerHTML = "Local storage has been cleared.";
+              y.focus();
+          } else {
+              localStorage.sticky = sterm;
+              yubComm("sticky");
+              window.b.focus();
+          }
+          finished = "done";
+        }
+
+        if (shcut == "notepad") {
+          y.value = "";
+          if (sterm == "-r") {
+            localStorage.np = "";
+            o.innerHTML = "Local storage has been cleared.";
+            y.focus();
+          } else {
+            o.innerHTML = '<div style="width:40%; height:50%; background: -moz-repeating-linear-gradient( top, snow, snow 38px, #81cbbc 40px ); line-height:40px" id="b" contenteditable="true"></div>';
+//           b["innerHTML"]=[localStorage.c];
+            if (localStorage.np) {
+              b["innerHTML"]=[localStorage.np];
+            } else {
+              b["innerHTML"]="This is an editable notepad with automatic local storage.\nClick here to add some notes.";
+            }
+            window.b.setAttribute("oninput", "localStorage.np=b['innerHTML']");
+            window.b.focus();
+          }
           finished = "done";
         }
 
