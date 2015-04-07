@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS1k 2015</title>
+    <script> var comp = "2015-webgl/"; </script>
+    <script src="../args.js"></script>
+  <body>
+	<canvas id="c"></canvas>
+	<script>
+	  var a = document.getElementsByTagName('canvas')[0];
+	  var b = document.body;
+	  // unprefix some popular vendor prefixed things (but stick to their original name)
+	  var AudioContext =
+		window.AudioContext ||
+		window.webkitAudioContext;
+	  var requestAnimationFrame =
+		window.requestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(f){ setTimeout(f, 1000/30); };
+
+	  // fix bug in safari: http://qfox.nl/weblog/218
+	  document.body.clientWidth;
+
+	  // stretch canvas to screen size (once, wont onresize!)
+	  a.style.width = (a.width = innerWidth) + 'px';
+	  a.style.height = (a.height = innerHeight) + 'px';
+
+	  var g = (function () {
+		try {
+		  var o = { antialias: true, stencil: true };
+		  var gl = c.getContext('webgl', o) || c.getContext('experimental-webgl', o);
+
+		  // keep in scope, must not be garbage collected
+		  __glExts =
+			[ 'OES_texture_float', 'OES_texture_float_linear', 'OES_standard_derivatives',
+			  'EXT_texture_filter_anisotropic', 'MOZ_EXT_texture_filter_anisotropic', 'WEBKIT_EXT_texture_filter_anisotropic',
+			  'WEBGL_compressed_texture_s3tc', 'MOZ_WEBGL_compressed_texture_s3tc', 'WEBKIT_WEBGL_compressed_texture_s3tc'
+			].map(function (ext) {
+			  return gl.getExtension(ext);
+			});
+
+		} catch (e) {
+		  document.body.innerHTML = 'WebGL not supported.';
+		  throw e;
+		}
+
+		return gl;
+	  })();
+	</script>
+		<div id="output">&nbsp;
+			<script>runTest();</script>
+		</div>
+  </body>
+</html>
