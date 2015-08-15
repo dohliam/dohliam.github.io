@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <title>X-SAMPA to IPA Converter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <link rel="shortcut icon" href="favicon.ico?v=2">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body, html{
+        font-family: 'Open Sans', sans-serif;
+      }
+      #container {
+        position:fixed;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+      }
+      .h1 {
+        font-size: 2em;
+        color: #333;
+        font-weight: 700;
+      }
+      h2 {
+        font-size: 1.5em;
+        color: gray;
+        font-weight: 700;
+        margin: 5px;
+      }
+      .tbox	{
+        background: #fbfbfb;
+        border: 1px solid #dfdfdf;
+      }
+      hr {
+        color: #efefef;
+        border: none;
+        height: 1px;
+        background-color: #efefef;
+      }
+      .hd {
+        position: relative;
+        height: 10%;
+        border-bottom: 1px solid #efefef;
+        padding: 0.5em 1em 0;
+        overflow: hidden;
+      }
+      .hd .nav {
+        float: right;
+      }
+      .hd .logo {
+        margin: 0 0.2em 0 0.4em;
+        position: relative;
+        top: 4px;
+      }
+      #inputdiv {
+        position: relative;
+        height: 15%;
+        text-align: center;
+      }
+      #txtdiv {
+        position: relative;
+        height: 30%;
+        text-align: center;
+      }
+      #htmldiv {
+        position: relative;
+        height: 30%;
+        text-align: center;
+      }
+      #textbox {
+        font-size: 1em;
+        width: 40%;
+        height: 60%;
+      }
+      #outbox {
+        font-size: 2em;
+        width: 40%;
+        height: 70%;
+      }
+      #htmlout {
+        font-size: 2em;
+      /*   color: #719ECE; */
+        color: #9D9DFF;
+      }
+      #legend {
+        text-align: center;
+      }
+      .pr {
+        color: #9D9DFF;
+        display: inline;
+      }
+      .gr {
+        color: #808080;
+        display: inline;
+      }
+      .tooltip {
+        outline: none;
+      }
+      .tooltip strong {
+        line-height:30px;
+      }
+      .tooltip span {
+        z-index:10;
+        display:none;
+        padding:14px 20px;
+        margin-top:-30px;
+        margin-left:28px;
+        height:30%;
+        line-height:16px;
+      }
+      .tooltip:hover span{
+        display:inline;
+        position:absolute;
+        color:#111;
+        border:1px solid #DCA;
+        background:#fffAF0;
+        overflow-y: scroll;
+      }
+      .tooltip span
+      {
+        border-radius:4px;
+        box-shadow: 5px 5px 8px #CCC;
+      }
+      h3 {
+        color: gray;
+        border: thin solid gray;
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+      }
+      .xs {
+        color: #808080;
+      }
+      .ipa {
+        color: #9D9DFF;
+      }
+
+    </style>
+    <script type="text/javascript">
+      xsIn = ['_R_F', 'J\\_<', '_H_T', 'G\\_<', '_B_L', '\|\\\|\\', 'r\\`', '<R>', 'g_<', '<F>', 'd_<', 'b_<', '_\?\\', 'z\\', 'z`', 'X\\', 'x\\', '_x', '_X', '_w', 'v\\', '_v', 'U\\', 't`', '_t', '_T', 's\\', 's`', 'r\\', 'r`', '_r', 'R\\', '_R', '_q', 'p\\', '_o', 'O\\', '_O', 'n`', '_n', 'N\\', '_N', '_m', 'M\\', '_M', 'l\\', 'l`', '_l', 'L\\', '_L', '_k', 'K\\', 'j\\', '_j', 'J\\', 'I\\', 'h\\', '_h', 'H\\', '_H', 'G\\', '_G', '_F', '_e', 'd`', '_d', '_c', 'B\\', '_B', '_a', '_A', '3\\', '_0', '@\\', '\?\\', '\!\\', ':\\', '\-\\', '_\+', '_\\', '_\}', '_\"', '_/', '_\-', '_>', '_=', '_~', '_\^', '\|\\', '\|\|', '>\\', '=\\', '<\\', 'Z', 'z', 'y', 'Y', 'X', 'x', 'w', 'W', 'v', 'V', 'u', 'U', 'T', 't', 's', 'S', 'r', 'R', 'q', 'Q', 'p', 'P', 'O', 'o', 'N', 'n', 'm', 'M', 'l', 'L', 'k', 'K', 'j', 'J', 'i', 'I', 'h', 'H', 'g', 'G', 'f', 'F', 'E', 'e', '@', 'D', 'd', 'C', 'c', 'B', 'b', '{', 'a', 'A', '9', '8', '7', '6', '5', '4', '3', '2', '1', '%', '&', '\}', '\"', '\'', '\.', '\?', '\!', ':', '\|', '=', '~', '\^', '`'];
+      ipaOut = [' ᷈', 'ʄ', ' ᷄', 'ʛ', ' ᷅', 'ǁ', 'ɻ', '↗', 'ɠ', '↘', 'ɗ', 'ɓ', 'ˤ', 'ʑ', 'ʐ', 'ħ', 'ɧ', '  ̽', '  ̆', 'ʷ', 'ʋ', '  ̬', 'ᵿ', 'ʈ', '  ̤', '  ̋', 'ɕ', 'ʂ', 'ɹ', 'ɽ', '  ̝', 'ʀ', '  ̌', '  ̙', 'ɸ', '  ̞', 'ʘ', '  ̹', 'ɳ', 'ⁿ', 'ɴ', '  ̼', '  ̻', 'ɰ', '  ̄', 'ɺ', 'ɭ', 'ˡ', 'ʟ', '  ̀', '  ̰', 'ɮ', 'ʝ', 'ʲ', 'ɟ', 'ᵻ', 'ɦ', 'ʰ', 'ʜ', '  ́', 'ɢ', 'ˠ', '  ̂', '  ̴', 'ɖ', '  ̪', '  ̜', 'ʙ', '  ̏', '  ̺', '  ̘', 'ɞ', '  ̥', 'ɘ', 'ʕ', 'ǃ', 'ˑ', '‿', '  ̟', '̂', '  ̚', '  ̈', '̌', '  ̠', 'ʼ', '  ̩', '̃', '  ̯', 'ǀ', '‖', 'ʡ', 'ǂ', 'ʢ', 'ʒ', 'z', 'y', 'ʏ', 'χ', 'x', 'w', 'ʍ', 'v', 'ʌ', 'u', 'ʊ', 'θ', 't', 's', 'ʃ', 'r', 'ʁ', 'q', 'ɒ', 'p', 'ʋ', 'ɔ', 'o', 'ŋ', 'n', 'm', 'ɯ', 'l', 'ʎ', 'k', 'ɬ', 'j', 'ɲ', 'i', 'ɪ', 'h', 'ɥ', 'ɡ', 'ɣ', 'f', 'ɱ', 'ɛ', 'e', 'ə', 'ð', 'd', 'ç', 'c', 'β', 'b', 'æ', 'a', 'ɑ', 'œ', 'ɵ', 'ɤ', 'ɐ', 'ɫ', 'ɾ', 'ɜ', 'ø', 'ɨ', 'ˌ', 'ɶ', 'ʉ', '\ˈ', 'ʲ', '.', 'ʔ', 'ꜜ', 'ː', '|', '̩', '̃', 'ꜛ', '˞'];
+
+      function ipa() {
+
+//         http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript/3561711#3561711
+        RegExp.escape = function(s) {
+          return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        };
+
+        var output = document.getElementById("outbox");
+        var input = document.getElementById("textbox");
+
+        output.value = input.value;
+
+        for (t in xsIn) {
+          var re = new RegExp(RegExp.escape(xsIn[t]), "g");
+          output.value = output.value.replace(re, ipaOut[t]);
+        }
+        htmlOut();
+      }
+
+      function geturl() {
+        var url = location.href;
+        if (/\?/.test(url) == true) {
+          var args = /\?(.*)/.exec(url)[1];
+          args=/\+/.test(args) ? args.replace(/\+/g,' ') : args;
+          var input = document.getElementById("textbox");
+          input.value = decodeURIComponent(args);
+        }
+      }
+
+      function htmlOut() {
+        var htmlout = document.getElementById("htmlout");
+        var input = document.getElementById("outbox");
+        htmlout.innerHTML = input.value.replace(/\n/g, "<br>");
+      }
+
+      function legend() {
+        xsort = xsIn.slice(0).sort();
+        ltext = document.getElementById("ltext");
+
+        txt = "";
+        ltext.innerHTML = "";
+        for (t in xsort) {
+          i = xsIn.indexOf(xsort[t]);
+          txt = txt + "<div class='gr'>" + xsIn[i] + "</div> → <div class='pr'>" + ipaOut[i] + "</div><br>";
+        }
+        var output = document.getElementById("outbox");
+        ltext.innerHTML = txt;
+
+      }
+
+    </script>
+
+  </head>
+
+  <body OnLoad="document.input.textbox.focus(); geturl(); ipa();">
+    <div id="container">
+      <header class="hd">
+        <span class="h1"><a href="/"><img class="logo" src="logo.png" style="width: 55px"></a>X-SAMPA to IPA Converter</span>
+      </header>
+
+      <div id="inputdiv">
+        <h2>Input</h2>
+
+        <form name="input">
+          <textarea name="textbox" class="tbox" spellcheck="false" id="textbox" accesskey='i' onkeyup="ipa()">[vIZ@n]</textarea></form>
+      </div>
+
+      <div id="txtdiv">
+        <h2>Text Output</h2>
+        <form name="output">
+          <textarea name="outbox" class="tbox" spellcheck="false" id="outbox" accesskey='o'></textarea>
+        </form>
+      </div>
+
+      <div id="legend">
+        <div class="tooltip" onmouseover="legend()">
+          <h3>X-Sampa guide</h3>
+          <span>
+            <strong>X-SAMPA to IPA conversion guide</strong><br />
+            <div id="ltext">&nbsp;</div>
+          </span>
+        </div>
+      </div>
+
+      <div id="htmldiv">
+        <hr>
+        <h2>HTML Output</h2>
+
+        <div id="htmlout"></div>
+
+      </div>
+    </div>
+  </body>
+</html>
