@@ -4,6 +4,7 @@
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
     <link rel="shortcut icon" href="favicon.ico?v=2">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" title="yub.js" href="xml"/>
 
     <style>
@@ -14,7 +15,7 @@
       }
       h2 {
         color: #FF8000;
-        font: 72px "Arial Black";
+        font: 72px 'Open Sans', sans-serif;
         margin-top: auto;
         margin-bottom: auto;
       }
@@ -49,14 +50,14 @@
       }
 
 var engines = [
-  {"n":"g", "a":"https://www.google.com/search?hl=en&q=%s", "d":"Google Search", "f":"https://google.com/"},
+  {"n":"g", "a":"https://www.google.com/search?q=%s", "d":"Google Search", "f":"https://google.com/"},
   {"n":"gim", "a":"https://www.google.com/search?tbm=isch&q=%s", "d":"Google Image Search", "f":"https://images.google.com/"},
   {"n":"gmail", "a":"https://mail.google.com/mail/u/0/#search/%s", "d":"Gmail", "f":"https://gmail.com/"},
   {"n":"drive", "a":"https://drive.google.com/#search/%s", "d":"Google Drive", "f":"https://drive.google.com/"},
   {"n":"am", "a":"https://www.amazon.com/exec/obidos/external-search?mode=blended&keyword=%s", "d":"Amazon.com Product Search", "f":"https://www.amazon.com/"},
   {"n":"gt", "a":"https://translate.google.com/#auto/en/%s", "d":"Google Auto-Translate Text", "f":"https://translate.google.com"},
   {"n":"gtu", "a":"https://translate.google.com/translate?u=%s", "d":"Google Auto-Translate URL", "f":"https://translate.google.com"},
-  {"n":"gb", "a":"https://books.google.com/books?q=%s&btnG=Search+Books&hl=en", "d":"Google Books Search", "f":"https://books.google.com"},
+  {"n":"gb", "a":"https://books.google.com/books?q=%s&btnG=Search+Books", "d":"Google Books Search", "f":"https://books.google.com"},
   {"n":"gfl", "a":"https://google.com/search?q=%s&btnI=I%27m+Feeling+Lucky", "d":"Google Feeling Lucky Search", "f":"https://google.com"},
   {"n":"gm", "a":"https://maps.google.com/maps?q=%s&output=classic", "d":"Google Maps Search", "f":"https://maps.google.com"},
   {"n":"gs", "a":"https://scholar.google.com/scholar?q=%s", "d":"Google Scholar Search", "f":"https://scholar.google.com"},
@@ -95,10 +96,11 @@ var engines = [
   {"n":"tw", "a":"https://twitter.com/%s", "d":"Twitter", "f":"https://twitter.com/"},
   {"n":"tws", "a":"https://twitter.com/search?q=%s", "d":"Twitter Search", "f":"https://twitter.com/search-advanced"},
   {"n":"imgur", "a":"https://imgur.com/search?q=%s", "d":"Imgur - Image Sharer", "f":"https://imgur.com/"},
-  {"n":"gpdf", "a":"https://www.google.com/search?hl=en&q=filetype:pdf+%s", "d":"Google PDF Search", "f":"https://www.google.com/search?hl=en&q=filetype:pdf"},
+  {"n":"gpdf", "a":"https://www.google.com/search?q=filetype:pdf+%s", "d":"Google PDF Search", "f":"https://www.google.com/search?q=filetype:pdf"},
   {"n":"gfim", "a":"https://www.google.com/search?tbm=isch&as_q=%s&tbs=sur:fmc", "d":"Google Free Image Search", "f":"https://images.google.com/"},
   {"n":"ngram", "a":"https://books.google.com/ngrams/graph?content=%s", "d":"Google Books Ngram Viewer", "f":"https://books.google.com/ngrams"},
   {"n":"gnas", "a":"https://www.google.com/search?q=%s site:news.google.com/newspapers", "d":"Google News Archive Search", "f":"http://news.google.com/newspapers"},
+  {"n":"gsite", "a":"https://www.google.com/search?q=site:%s", "d":"Google Site Search", "f":"http://google.com/"},
   {"n":"hn", "a":"https://hn.algolia.com/?q=%s", "d":"Hacker News", "f":"https://news.ycombinator.com/"},
   {"n":"how", "a":"http://www.wikihow.com/?search=%s", "d":"wikiHow - How to do anything", "f":"http://www.wikihow.com/"},
   {"n":"ifixit", "a":"https://www.ifixit.com/Guide/search/%s", "d":"iFixit - The free repair manual", "f":"http://www.ifixit.com/"},
@@ -150,9 +152,11 @@ var engines = [
   {"n":"sp", "a":"https://startpage.com/do/search?query=%s", "d":"Startpage Web Search", "f":"https://startpage.com/"},
   {"n":"spim", "a":"https://startpage.com/do/search?cat=pics&query=%s", "d":"Startpage Image Search", "f":"https://startpage.com/"},
   {"n":"spv", "a":"https://startpage.com/do/search?cat=video&query=%s", "d":"Startpage Video Search", "f":"https://startpage.com/"},
+  {"n":"spsite", "a":"https://startpage.com/do/search?query=site:%s", "d":"Startpage Site Search", "f":"https://startpage.com/"},
   {"n":"ix", "a":"https://ixquick.com/do/search?q=%s", "d":"Ixquick Search Engine", "f":"https://www.ixquick.com/"},
   {"n":"ixim", "a":"https://ixquick.com/do/search?cat=pics&query=%s", "d":"Ixquick Image Search", "f":"https://ixquick.com/"},
   {"n":"ixv", "a":"https://ixquick.com/do/search?cat=video&query=%s", "d":"Ixquick Video Search", "f":"https://ixquick.com/"},
+  {"n":"ixsite", "a":"https://ixquick.com/do/search?q=site:%s", "d":"Ixquick Site Search", "f":"https://www.ixquick.com/"},
   {"n":"blv", "a":"http://www.blinkx.com/search/%s", "d":"Blinkx Video Search", "f":"http://www.blinkx.com/"},
   {"n":"vi", "a":"http://vimeo.com/search?q=%s", "d":"Vimeo Videos", "f":"https://vimeo.com/"},
   {"n":"fspam", "a":"http://www.stopforumspam.com/ipcheck/%s", "d":"Stop Forum Spam - IP Check", "f":"http://www.stopforumspam.com/"},
