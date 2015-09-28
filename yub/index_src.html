@@ -38,6 +38,7 @@
 
     </style>
 
+    <link id="stylesheet" rel="stylesheet" href="css/default.css">
     <script src="mods.js"></script>
 
     <script type="text/javascript">
@@ -770,6 +771,15 @@ var tips = [
           day = d.getDay().toString().replace(/0/,"Sunday").replace(/1/,"Monday").replace(/2/,"Tuesday").replace(/3/,"Wednesday").replace(/4/,"Thursday").replace(/5/,"Friday").replace(/6/,"Saturday");
           iso = d.toISOString().replace(/T.*/,"");
           o.innerHTML = day + "<br><div class='grey'>(" + iso + ")</div>";
+          finished = "done";
+        }
+
+        if (shcut == "skin") {
+          stylesheet = document.getElementById("stylesheet");
+// 	  if ls then list available skins
+// 	  if non-existent then print error
+          stylesheet.href = "css/" + sterm + ".css";
+          o.innerHTML = "yub.js skin successfully changed to \"" + sterm + "\"!";
           finished = "done";
         }
 
