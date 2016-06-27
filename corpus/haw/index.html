@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hawaiian Corpus Project: Data from a corpus of written Hawaiian</title>
+    <link rel="stylesheet" type="text/css" href="siimple.min.css"/>
+    <style type="text/css">
+      body {
+        padding-left: 24px;
+      }
+      footer {
+        font-size: small;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="hawaiian-corpus-project">The Hawaiian Corpus Project: Data from a corpus of written Hawaiian</h1>
+    <p>This repository contains data based on a corpus of texts written in the Hawaiian language (<em>ʻŌlelo Hawaiʻi</em>). The data includes frequency lists, stopwords, and lists of most common n-grams. The text in the corpus was obtained from <a href="http://ulukau.org/">Ulukau</a>, the Hawaiian Electronic Library.</p>
+    <p>There are a total of 10.7 million words in the corpus, which was restricted to modern (post-20th century) and non-scriptural text. An overview of statistics for the corpus (including the top most common words and n-grams) can be seen <a href="https://github.com/dohliam/hawaiian-corpus/blob/master/data/corpus_stats-haw.md">here</a>.</p>
+    <p>The corpus was processed using scripts from the <a href="https://github.com/dohliam/corpus-tools">corpus-tools</a> project.</p>
+    <h2 id="data">Data</h2>
+    <p>You can download all of the data by clicking <b><a href="https://github.com/dohliam/hawaiian-corpus/archive/master.zip">here</a></b>. Note that the individual files linked below are quite large and may take some time to load if you try to view them directly in your browser.</p>
+    <p>Files included in this repository:</p>
+    <ul>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/freqlist_haw.txt">Hawaiian frequency list</a>: A list of all the words in the corpus, arranged by frequency</li>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/stoplist_haw.txt">Hawaiian stopwords list</a>: A list of stopwords derived from the frequency file (this is being actively verified and updated for eventual inclusion in the <a href="https://github.com/6/stopwords-json">stopwords-json</a> project)</li>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/ngrams/2grams_haw.txt">List of Hawaiian bigrams</a> - A list of the most common sequences of two words, arranged by frequency</li>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/ngrams/3grams_haw.txt">List of Hawaiian 3-grams</a> - A list of the most common sequences of three words, arranged by frequency</li>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/ngrams/4grams_haw.txt">List of Hawaiian 4-grams</a> - A list of the most common sequences of four words, arranged by frequency</li>
+    <li><a href="https://raw.githubusercontent.com/dohliam/hawaiian-corpus/master/data/corpus_stats-haw.md">Statistics for the Hawaiian corpus</a></li>
+    </ul>
+    <h2 id="caveats">Caveats</h2>
+    <p>While only Hawaiian texts were included, due to the nature of the corpus it was nevertheless difficult to avoid the introduction of a certain amount of English (for example, copyright notices and bilingual text), as well as orthographic and OCR errors. While every effort has been made to remove and correct these, the corpus is far from perfect and errors inevitably remain. However, to the best of my knowledge no similar electronic corpus of Hawaiian texts is available, and it is hoped that this data will still be of use for the purposes of supporting language revitalization efforts in Hawaiʻi.</p>
+    <h2 id="acknowledgements">Acknowledgements</h2>
+    <p>Many thanks to Dr. Candace Kaleimamoowahinekapu Galla of the University of British Columbia for her suggestions and support.</p>
+    <p>Thanks also to Ulukau.org for making such a rich collection of Hawaiian texts available online, without which the formation of this corpus would not have been possible.</p>
+    <h2 id="license">License</h2>
+    <p><a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+    <footer>Site design: <a href="https://github.com/siimple/siimple">Siimple CSS</a> by @jmjuanes</footer>
+  </body>
+</html>
