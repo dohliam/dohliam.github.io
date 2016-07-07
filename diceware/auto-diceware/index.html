@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>auto-diceware</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <link rel="stylesheet" type="text/css" href="https://yegor256.github.io/tacit/tacit.min.css"/>
+    <script src="adw.js" type="text/javascript"></script>
+    <script src="js/dw_en.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      window.wordlist = "en";
+    </script>
+    <style>
+      td {
+        border: 0;
+        vertical-align: middle;
+        color: gray;
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <select onchange="multiling(this.value)" title="Choose a language (Shortcut: Shift+Alt+L)" accesskey="l">
+      <option value="en" SELECTED>en (English)</option>
+      <option value="eo">eo (Esperanto)</option>
+      <option value="es">es (español)</option>
+      <option value="fr">fr (français)</option>
+      <option value="it">it (italiano)</option>
+      <option value="ja">ja (日本語)</option>
+      <option value="no">no (norsk)</option>
+      <option value="tr">tr (Türkçe)</option>
+    </select>
+    <table>
+    <tr><td><input type="text" id="w1" size="25" value=""></td><td id="c1"></td></tr>
+    <tr><td><input type="text" id="w2" size="25" value=""></td><td id="c2"></td></tr>
+    <tr><td><input type="text" id="w3" size="25" value=""></td><td id="c3"></td></tr>
+    <tr><td><input type="text" id="w4" size="25" value=""></td><td id="c4"></td></tr>
+    </table>
+
+    <input type="submit" value="Roll 20 dice!" onclick="crunch_multi(window.wordlist)" accesskey="p" title="Generate a new password (Shortcut: Shift+Alt+P)">
+
+    <input type="text" id="pw" size="25" value="">
+  </body>
+</html>
