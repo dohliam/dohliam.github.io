@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://dohliam.github.io/dropin-minimal-css/vendor/siimple.min.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-left: 24px;
+      }
+    </style>
+
+    <title>Workflow - Quick prototyping script for creating rich html and pdfs from markdown documents</title>
+  </head>
+  <body>
+    <h1 id="workflow---quick-prototyping-script-for-creating-rich-html-and-pdfs-from-markdown-documents">Workflow - Quick prototyping script for creating rich html and pdfs from markdown documents</h1>
+    
+    <p><a href="https://github.com/dohliam/workflow">Workflow</a> is a small script for generating nice-looking web pages and pdf documents from markdown using a <a href="https://github.com/dohliam/dropin-minimal-css">CSS switcher</a>. This means that creating a webpage or pdf is simply a matter of writing some content in markdown and choosing a CSS template, which can drastically reduce the amount of time required to put documentation online.</p>
+    
+    <h2 id="requirements">Requirements</h2>
+    
+    <ul>
+      <li><a href="https://www.ruby-lang.org/en/">ruby</a> and the <a href="https://github.com/gettalong/kramdown">kramdown</a> gem</li>
+      <li><a href="https://github.com/wkhtmltopdf/wkhtmltopdf">wkhtmltopdf</a></li>
+    </ul>
+    
+    <h2 id="usage">Usage</h2>
+    
+    <p>Given a plain markdown document, Workflow by default will create an html file with an embedded switcher, allowing you to cycle interactively through a list of CSS templates to see which one works best with your document. You can try this by <a href="https://github.com/dohliam/workflow">cloning or downloading the project</a> and running the following command on this readme file from within the project directory:</p>
+    
+    <pre><code>/.workflow.rb README.md
+    </code></pre>
+    
+    <p>Once you have decided on a CSS template, just run workflow.rb again with the <code>-s</code> option to generate a permanent file with your chosen CSS included:</p>
+    
+    <pre><code>./workflow.rb -s siimple README.md
+    </code></pre>
+    
+    <p>Use the <code>-p</code> option to create a PDF using your selected CSS template:</p>
+    
+    <pre><code>./workflow.rb -ps siimple README.md
+    </code></pre>
+    
+    <p>You can view an <a href="https://dohliam.github.io/workflow">online demo</a> or <a href="https://dohliam.github.io/workflow/workflow.pdf">download a pdf</a> which is the result of running the above commands.</p>
+    
+    <h2 id="related-projects">Related projects</h2>
+    
+    <ul>
+      <li><a href="https://github.com/dohliam/dropin-minimal-css">dropin-minimal-css</a>, on which this script is based</li>
+      <li><a href="https://github.com/darshandsoni/asciidoctor-skins">asciidoctor-skins</a>, for a similar idea but with asciidoctor</li>
+    </ul>
+    
+    <h2 id="license">License</h2>
+    
+    <p>MIT.</p>
+
+
+  </body>
+</html>
