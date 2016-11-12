@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://darshandsoni.com/asciidoctor-skins/css/fedora.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-left: 24px;
+      }
+    </style>
+
+    <title>asciidoctor-workflow: Quick prototyping script for creating rich html and pdfs from Asciidoctor documents</title>
+  </head>
+            <body class="article toc2 toc-left">
+      <div id="header">
+      <h1>asciidoctor-workflow: Quick prototyping script for creating rich html and pdfs from Asciidoctor documents</h1>
+      <div id="toc" class="toc2">
+      <div id="toctitle">Table of Contents</div>
+      <ul class="sectlevel1">
+      <li><a href="#_requirements">Requirements</a></li>
+      <li><a href="#_usage">Usage</a></li>
+      <li><a href="#_known_issues">Known issues</a></li>
+      <li><a href="#_related_projects">Related projects</a></li>
+      <li><a href="#_license">License</a></li>
+      </ul>
+      </div>
+      </div>
+      <div id="content">
+      <div id="preamble">
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p><a href="https://github.com/dohliam/asciidoctor-workflow">Asciidoctor-workflow</a> is a small script for generating nice-looking web pages and pdf documents from Asciidoctor using a <a href="https://github.com/darshandsoni/asciidoctor-skins">CSS switcher</a>. This means that creating a webpage or a pdf is simply a matter of writing some content in Asciidoctor and choosing a CSS template from the <a href="https://github.com/darshandsoni/asciidoctor-skins">asciidoctor-skins</a> project, which can drastically reduce the amount of time required to put documentation online.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="_requirements">Requirements</h2>
+      <div class="sectionbody">
+      <div class="ulist">
+      <ul>
+      <li>
+      <p><a href="https://www.ruby-lang.org/">ruby</a> and the <a href="https://github.com/asciidoctor/asciidoctor">asciidoctor</a> gem (&gt;1.5)</p>
+      </li>
+      <li>
+      <p><a href="https://github.com/wkhtmltopdf/wkhtmltopdf">wkhtmltopdf</a> for PDF support</p>
+      </li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="_usage">Usage</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Given a plain Asciidoctor document, asciidoctor-workflow by default will create an html file with an embedded switcher, allowing you to cycle interactively through a list of CSS templates to see which one works best with your document. You can try this by <a href="https://github.com/dohliam/asciidoctor-workflow">cloning or downloading the project</a> and running the following command on this readme file from within the project directory:</p>
+      </div>
+      <div class="listingblock">
+      <div class="content">
+      <pre>/.asciidoctor_workflow.rb README.adoc</pre>
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Once you have decided on a CSS template, just run asciidoctor_workflow.rb again with the <code>-s</code> option to generate a permanent file with your chosen CSS included:</p>
+      </div>
+      <div class="listingblock">
+      <div class="content">
+      <pre>./asciidoctor_workflow.rb -s notebook README.md</pre>
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Use the <code>-p</code> option to create a PDF using your selected CSS template:</p>
+      </div>
+      <div class="listingblock">
+      <div class="content">
+      <pre>./asciidoctor_workflow.rb -ps notebook README.md</pre>
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>You can view an <a href="https://dohliam.github.io/asciidoctor-workflow">online demo</a> or <a href="https://dohliam.github.io/asciidoctor-workflow/asciidoctor-workflow.pdf">download a pdf</a> which is the result of running the above commands.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="_known_issues">Known issues</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>PDF generation is buggy at the moment and does not produce correct output for most stylesheets. This appears to be a bug with wkhtmltopdf. Feel free to submit a PR if you have a fix or can suggest a different pdf generator!</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="_related_projects">Related projects</h2>
+      <div class="sectionbody">
+      <div class="ulist">
+      <ul>
+      <li>
+      <p><a href="https://github.com/darshandsoni/asciidoctor-skins">asciidoctor-skins</a> by @darshandsoni, the source of the CSS templates for Asciidoctor</p>
+      </li>
+      <li>
+      <p><a href="https://github.com/dohliam/workflow">workflow</a>, for a similar idea but with markdown</p>
+      </li>
+      <li>
+      <p><a href="https://github.com/dohliam/dropin-minimal-css">dropin-minimal-css</a>, on which this script and workflow are based</p>
+      </li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="_license">License</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>MIT.</p>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div id="footer">
+      <div id="footer-text">
+      Last updated 2016-11-11 20:04:08 PST
+      </div>
+      </div>
+      </body>
+      </html>
+
+    </div>
+  </body>
+</html>
