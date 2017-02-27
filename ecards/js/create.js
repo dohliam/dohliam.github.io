@@ -11,7 +11,7 @@ function load_ready() {
 function select_constructor(name, list) {
   menu_name = name + "_menu";
   initial = name.replace(/^(.).*/, "$1");
-  drop_down = '<select name="' + menu_name + '" id="' + menu_name + '" accesskey="' + initial + '" onchange="load_' + name + '();">\n';
+  drop_down = '<select name="' + menu_name + '" id="' + menu_name + '" accesskey="' + initial + '" onchange="show_preview();">\n';
 
   for (i = 0; i < list.length; i++) {
     p = list[i];
@@ -49,7 +49,6 @@ function load_icon() {
   if (icon_menu.value == "Select Image") { ic = "" }
   i = document.getElementById("image_url");
   i.value = ic;
-  show_preview();
 }
 
 function load_bg_color() {
@@ -58,6 +57,7 @@ function load_bg_color() {
 }
 
 function show_preview() {
+  load_icon();
   load_image();
   load_text();
   load_pattern();
