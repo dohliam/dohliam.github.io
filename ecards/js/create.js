@@ -11,7 +11,9 @@ function load_ready() {
 function select_constructor(name, list) {
   menu_name = name + "_menu";
   initial = name.replace(/^(.).*/, "$1");
-  drop_down = '<select name="' + menu_name + '" id="' + menu_name + '" accesskey="' + initial + '" onchange="show_preview();">\n';
+  action = "show_preview();";
+  if (name == "icon") { action = "load_image('icon'); show_preview();" }
+  drop_down = '<select name="' + menu_name + '" id="' + menu_name + '" accesskey="' + initial + '" onchange="' + action + '">\n';
 
   for (i = 0; i < list.length; i++) {
     p = list[i];
@@ -21,9 +23,10 @@ function select_constructor(name, list) {
   return drop_down;
 }
 
-function load_image() {
-  url = document.getElementById("image_url").value;
+function load_image(u) {
   img = document.getElementById("card_image");
+  url = document.getElementById("image_url").value;
+  if (u == "icon") { url = load_icon() }
   img.src = url;
 }
 
@@ -44,11 +47,10 @@ function load_pattern() {
 
 function load_icon() {
   icon_menu = document.getElementById("icon_menu");
-  card = document.getElementById("card_container");
   ic = "https://dohliam.github.io/elegant-circles/svg/" + icon_menu.value + ".svg";
   if (icon_menu.value == "Select Image") { ic = "" }
-  i = document.getElementById("image_url");
-  i.value = ic;
+  document.getElementById("image_url").value = ic;
+  return ic;
 }
 
 function load_bg_color() {
@@ -57,8 +59,7 @@ function load_bg_color() {
 }
 
 function show_preview() {
-  load_icon();
-  load_image();
+  load_image("url");
   load_text();
   load_pattern();
 
