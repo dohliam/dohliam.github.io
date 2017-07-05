@@ -1,5 +1,6 @@
 function pinYin() {
-  var ShuRu = document.getElementById("wenzi");
+  var shuru = document.getElementById("wenzi");
+  
   if (document.getElementById("fangshi").value == "pysPyd") {var pinArray = pysPyd;}
   if (document.getElementById("fangshi").value == "pydPys") {var pinArray = pydPys;}
   if (document.getElementById("fangshi").value == "pysZhuyin") {var pinArray = pysZhuyin;}
@@ -8,6 +9,11 @@ function pinYin() {
   if (document.getElementById("fangshi").value == "zhuyinPys") {var pinArray = zhuyinPys;}
   for (var ckey in pinArray) {
     (pinArray == pysZhuyin || pinArray == pydZhuyin) ? (re = new RegExp(ckey, "gi")) : (re = new RegExp(ckey, "g"));
-    ShuRu.value = ShuRu.value.replace(re, pinArray[ckey]);
+    shuru.value = sanitizePy(shuru.value).replace(re, pinArray[ckey]);
   }
+}
+
+function sanitizePy(pinyin) {
+  out = pinyin.replace(/ă/, "ǎ").replace(/ĕ/, "ě").replace(/ĭ/, "ǐ").replace(/ŏ/, "ǒ").replace(/ŭ/, "ǔ");
+  return out;
 }
