@@ -1,125 +1,69 @@
 <html>
   <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <title>Pinyin Tone Marks Converter - Pīnyīn Shēngdiào Fúhào Zhuǎnhuàn Gōngjù - 拼音声调符号转换工具</title>
+  <title>Pinyin Tone Marks Converter | Pīnyīn Shēngdiào Fúhào Zhuǎnhuàn Gōngjù | 拼音声调符号转换工具</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style type="text/css">
-	td	{
-		font-size: small;
-	}	
-	html {
-		font-family: sans-serif;
-		height: 100%;
-	}
-	body {
-		margin:0;
-		padding:0;
-		height:100%;
-		font-family: sans-serif;
-		background-color: #fff;
-	}
-	#container {
-		min-height:100%;
-		position:relative;
-	}
-	#header {
-		background:#ff0;
-		padding:10px;
-	}
-	#body {
-		padding:10px;
-		padding-bottom:120px;
-	}
-	#footer {
-		position:absolute;
-		bottom:0;
-		width:100%;
-		height:120px;
-		font-size: small;
-	}
+    <link rel="stylesheet" type="text/css" href="https://dohliam.github.io/dropin-minimal-css/vendor/bullframe.min.css">
+    <link rel="stylesheet" type="text/css" href="pinyin.css">
 
-	</style>
+    <script src="js/pinyin.js" type="text/javascript"></script>
+    <script src="js/pyspyd.js" type="text/javascript"></script>
+    <script src="js/pydpys.js" type="text/javascript"></script>
+    <script src="js/pyszhuyin.js" type="text/javascript"></script>
+    <script src="js/pydzhuyin.js" type="text/javascript"></script>
+    <script src="js/zhuyinpyd.js" type="text/javascript"></script>
+    <script src="js/zhuyinpys.js" type="text/javascript"></script>
 
-  <script src="pyspyd.js" type="text/javascript"></script>
-  <script src="pydpys.js" type="text/javascript"></script>
-  <script src="pyszhuyin.js" type="text/javascript"></script>
-  <script src="pydzhuyin.js" type="text/javascript"></script>
-  <script src="zhuyinpyd.js" type="text/javascript"></script>
-  <script src="zhuyinpys.js" type="text/javascript"></script>
+  </head>
 
-  <script type="text/javascript">
-    function pinYin()
-    {
-      var ShuRu = document.getElementById("WenziKuang");
-      if (document.getElementById("fangshi").value == "pysPyd") {var pinArray = pysPyd;}
-      if (document.getElementById("fangshi").value == "pydPys") {var pinArray = pydPys;}
-      if (document.getElementById("fangshi").value == "pysZhuyin") {var pinArray = pysZhuyin;}
-      if (document.getElementById("fangshi").value == "pydZhuyin") {var pinArray = pydZhuyin;}
-      if (document.getElementById("fangshi").value == "zhuyinPyd") {var pinArray = zhuyinPyd;}
-      if (document.getElementById("fangshi").value == "zhuyinPys") {var pinArray = zhuyinPys;}
-      for (var ckey in pinArray) {
-        (pinArray == pysZhuyin || pinArray == pydZhuyin) ? (re = new RegExp(ckey, "gi")) : (re = new RegExp(ckey, "g"));
-        ShuRu.value = ShuRu.value.replace(re, pinArray[ckey]);
-      }
-    }
-  </script>
+  <body onload="window.wenzi.focus();">
 
-</head>
+    <div id="container">
+      <center>
+        <h1>Pinyin Tone Marks Converter</h1>
+        <h2>Pīnyīn Shēngdiào Fúhào Zhuǎnhuàn Gōngjù</h2>
+        <!--<h2>拼音声调符号转换工具</h2>-->
 
-<body OnLoad="document.shuru.wenzi.focus();">
+        <textarea id="wenzi" rows="10" onkeyup="pinYin()" placeholder="Input / Shūrù"></textarea><p>
+        <input type=button onclick="pinYin()" value="Convert / Zhuǎnhuàn!"><p>
 
-<div id="container">
+        <select id="fangshi" accesskey="f">
+          <option value="pysPyd">Numbers to Tone Marks</option>
+          <option value="pydPys">Tone Marks to Numbers</option>
+          <option value="pysZhuyin">Numbers to Bopomofo</option>
+          <option value="pydZhuyin">Tone Marks to Bopomofo</option>
+          <option value="zhuyinPyd">Bopomofo to Tone Marks</option>
+          <option value="zhuyinPys">Bopomofo to Numbers</option>
+        </select>
 
-	<div id="body">
-<h1>Pinyin Tone Marks Converter</h1>
-<h2><i>Pīnyīn Shēngdiào Fúhào Zhuǎnhuàn Gōngjù</i></h2>
-<!--<h2>拼音声调符号转换工具</h2>-->
-<center>
-Input / <i>Shūrù</i>:
-<p>
+      <h3>Instructions/Tips</h3>
+      <ol>
+        <li>Enter some <a href="http://en.wikipedia.org/wiki/Hanyu_pinyin#Numerals_in_place_of_tone_marks">pinyin with tone numbers</a> in the input box (e.g. "Ni3 hao3 ma") and it should be automatically converted to <a href="http://en.wikipedia.org/wiki/Hanyu_pinyin#Rules_for_placing_the_tone_mark">tone marks</a> as you type.</li>
+        <li>You can change the pinyin with tone marks back to pinyin with numbers (or <a href="http://en.wikipedia.org/wiki/Bopomofo">Bopomofo</a>) by selecting options from the drop-down menu and then pressing the "Convert" button.</li>
+        <li>Once you select an option from the drop-down menu, conversion should be instantaneous (i.e. as-you-type).</li>
+        <li>Try cutting and pasting pinyin into the box and watch it convert on the fly!</li>
+        <li>You can also use this converter to type Hanyu Pinyin and output Bopomofo (using the option Convert Numbers to Bopomofo), or vice versa.</li>
+        <li>This converter uses JavaScript and does not require an internet connection. You can download a copy of the converter <a href="tonemarks.zip">here</a> and use it offline in your browser.</li>
+      </ol> 
 
-<form name="shuru">
-	<textarea name="wenzi" rows="10" cols="50" style="font-size: 16px" id="WenziKuang" onkeyup="pinYin()"></textarea><p>
-	<input type=button onclick="pinYin()" value="Convert / zhuǎnhuàn!"></form><p>
+      <h3>Examples</h3>
+      <ul>
+        <li><b>Numbers to Tone Marks:</b> Han4zi4 biao1yin1 zhen1 hao3wan2! <b>→</b> Hànzì biāoyīn zhēn hǎowán!</li>
+        <li><b>Tone Marks to Numbers:</b> Hànzì biāoyīn zhēn hǎowán! <b>→</b> Han4zi4 biao1yin1 zhen1 hao3wan2!</li>
+        <li><b>Numbers to Bopomofo:</b> Han4zi4 biao1yin1 zhen1 hao3wan2! <b>→</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ!</li>
+        <li><b>Tone Marks to Bopomofo:</b> Hànzì biāoyīn zhēn hǎowán! <b>→</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ!</li>
+        <li><b>Bopomofo to Tone Marks:</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ! <b>→</b> Hànzì biāoyīn zhēn hǎowán!</li>
+        <li><b>Bopomofo to Numbers:</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ! <b>→</b> Han4zi4 biao1yin1 zhen1 hao3wan2!</li>
+      </ul> 
 
-			<select id="fangshi">
-				<option value="pysPyd">Convert Numbers to Tone Marks (ni3 hao3 > nǐ hǎo)</option>
-				<option value="pydPys">Convert Tone Marks to Numbers (nǐ hǎo > ni3 hao3)</option>
-				<option value="pysZhuyin">Convert Numbers to Bopomofo (ni3 hao3 > ㄋㄧˇ ㄏㄠˇ)</option>
-				<option value="pydZhuyin">Convert Tone Marks to Bopomofo (nǐ hǎo > ㄋㄧˇ ㄏㄠˇ)</option>
-				<option value="zhuyinPyd">Convert Bopomofo to Tone Marks (ㄋㄧˇ ㄏㄠˇ > nǐ hǎo)</option>
-				<option value="zhuyinPys">Convert Bopomofo to Numbers (ㄋㄧˇ ㄏㄠˇ > ni3 hao3)</option>
-			</select><p>
-</center>
+      </center>
+    </div>
 
-<h3>Instructions/Tips</h3>
-<ol>
-<li>Enter some <a href="http://en.wikipedia.org/wiki/Hanyu_pinyin#Numerals_in_place_of_tone_marks">pinyin with tone numbers</a> in the input box (e.g. "Ni3 hao3 ma") and it should be automatically converted to <a href="http://en.wikipedia.org/wiki/Hanyu_pinyin#Rules_for_placing_the_tone_mark">tone marks</a> as you type.</li>
-<li>You can change the pinyin with tone marks back to pinyin with numbers (or <a href="http://en.wikipedia.org/wiki/Bopomofo">Bopomofo</a>) by selecting options from the drop-down menu and then pressing the "Convert" button.</li>
-<li>Once you select an option from the drop-down menu, conversion should be instantaneous (i.e. as-you-type).</li>
-<li>Try cutting and pasting pinyin into the box and watch it convert on the fly!</li>
-<li>You can also use this converter to type Hanyu Pinyin and output Bopomofo (using the option Convert Numbers to Bopomofo), or vice versa.</li>
-<li>This converter uses JavaScript and does not require an internet connection. You can download a copy of the converter <a href="tonemarks.zip">here</a> and use it offline in your browser.</li>
-</ol> 
-
-<h3>Examples</h3>
-<ul>
-<li><b>Numbers to Tone Marks:</b> Han4zi4 biao1yin1 zhen1 hao3wan2! <b>→</b> Hànzì biāoyīn zhēn hǎowán!</li>
-<li><b>Tone Marks to Numbers:</b> Hànzì biāoyīn zhēn hǎowán! <b>→</b> Han4zi4 biao1yin1 zhen1 hao3wan2!</li>
-<li><b>Numbers to Bopomofo:</b> Han4zi4 biao1yin1 zhen1 hao3wan2! <b>→</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ!</li>
-<li><b>Tone Marks to Bopomofo:</b> Hànzì biāoyīn zhēn hǎowán! <b>→</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ!</li>
-<li><b>Bopomofo to Tone Marks:</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ! <b>→</b> Hànzì biāoyīn zhēn hǎowán!</li>
-<li><b>Bopomofo to Numbers:</b> ㄏㄢˋㄗˋ ㄅㄧㄠㄧㄣ ㄓㄣ ㄏㄠˇㄨㄢˊ! <b>→</b> Han4zi4 biao1yin1 zhen1 hao3wan2!</li>
-</ul> 
-
-
-<br>
-
-</div>
-	<div id="footer">
-<hr>
-	<center><p>Copyright 2013 by <a href="http://fluentmandarinschool.com">Fluent Mandarin School</a></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.</p></center>
-</div>
-</div>
-</body>
+    <div id="footer">
+      <hr>
+      <center>
+        <p>Copyright 2013 by <a href="http://fluentmandarinschool.com">Fluent Mandarin School</a></p>
+        <p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.</p>
+      </center>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,42 @@
+body {
+  font-family: sans-serif;
+}
+td {
+  font-size: small;
+}
+#container {
+  padding:10px;
+}
+#footer {
+  font-size: small;
+}
+#wenzi {
+  font-size: 16px;
+  width: 90%;
+}
+li {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+h2 {
+  font-style: italic;
+  color: #808080;
+}
+h3 {
+  color: #808080;
+}
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) {
+  #wenzi {
+    width: 60%;
+  }
+  li {
+    width: 60%;
+  }
+  select {
+    width: 60%;
+  }
+}
