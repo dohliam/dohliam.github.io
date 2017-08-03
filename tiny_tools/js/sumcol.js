@@ -11,7 +11,7 @@ function calc_sum() {
 
   if (window.advanced.checked) {
     sfield = parseFloat(sumfield.value) -1;
-    fsep = fieldsep.value;
+    fsep = fieldsep.value.replace(/\\t/, "\t").replace(/\\n/, "\n");
     lines = input_col.value.replace(/\n$/, "").split("\n");
     numbers = [];
     for (x = 0; x < lines.length; x++) {
@@ -37,7 +37,7 @@ function calc_sum() {
 }
 
 function add(a, b) {
-    return parseFloat(a) + parseFloat(b);
+  return parseFloat(a) + parseFloat(b);
 }
 
 function toggle_options() {
