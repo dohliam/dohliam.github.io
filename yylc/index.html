@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <title>粵語量詞查詢</title>
+    <link rel="stylesheet" type="text/css" href="https://dohliam.github.io/dropin-minimal-css/vendor/picnic.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    body {
+      margin: 10px;
+    }
+    #output {
+      margin-top: 10px;
+    }
+    td {
+      padding: 15px;
+    }
+  </style>
+  <script src="yylc.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    function mwsearch(term) {
+
+      output = document.getElementById("output");
+      var outlines = new Array();
+
+      if (term == "") {
+        output.innerHTML = "";
+        return;
+      }
+
+      for (var i = 0; i < mw_list.length; i++) {
+        var re = new RegExp(term);
+
+        mw = mw_list[i].l;
+        noun = mw_list[i].m;
+        mw_py = mw_list[i].p;
+        noun_py = mw_list[i].n;
+        gymw = mw_list[i].g;
+
+        searchtext = mw + noun + mw_py + noun_py + gymw;
+
+        if (re.test(searchtext)) {
+
+          outlines.push('<tr id="theaders" style="display:none"><th>粵語</th><th>拼音</th><th>國語</th></tr>')
+          outlines.push('<tr><td class="yue">一' + mw + noun + '</td><td class="pinyin"><em>yat7 ' + mw_py + " " + noun_py + '</em></td><td class="guoyu">' + gymw + '</td></tr>');
+        }
+      }
+
+      output.innerHTML = "<table>" + outlines.join("\n") + "</table>";
+      window.theaders.style.display = "";
+    }
+  </script>
+</head>
+<body onload="window.searchbar.focus();">
+  <h1>粵語量詞查詢</h1>
+  <input id="searchbar" name="q" type="text" class="search" accesskey="s" placeholder="輸入量詞、名詞、動詞、或粵語拼音" autocomplete="off" onkeyup="mwsearch(this.value)">
+
+  <div id="output">&nbsp;</div>
+
+</body>
+</html>
