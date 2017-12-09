@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-  <title>量词查询</title>
+  <title>量詞查詢</title>
     <link rel="stylesheet" type="text/css" href="https://dohliam.github.io/dropin-minimal-css/vendor/picnic.min.css"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style type="text/css">
@@ -88,9 +88,9 @@
     function fmtheaders(type) {
       header_cols = [];
       if (type == 'mw' || type == 'vm') {
-        header_cols = ['量词', '拼音', '用法'];
+        header_cols = ['量詞', '拼音', '用法'];
       } else if (type == 'mc' || type == 'vc') {
-        header_cols = ['量词', '词例', '拼音'];;
+        header_cols = ['量詞', '詞例', '拼音'];;
       }
       header_txt = '<table><tr id="' + type + 'theaders" style="display:none"><th>' + header_cols.join('</th><th>') + '</th></tr>';
       return header_txt;
@@ -99,7 +99,7 @@
     function fmtrows(type) {
       row_txt = '';
       if (type == 'mw' || type == 'vm') {
-        var yfout = (yf == '') ? '' : '用于' + yf;
+        var yfout = (yf == '') ? '' : '用於' + yf;
         row_txt = '<tr><td class="guo">' + mw + '</td><td class="pinyin"><em>' + mwpy + '</em></td><td class="yf">' + yfout + '</td></tr>';
       } else if (type == 'mc') {
         row_txt = '<tr><td class="lc">' + mw + '</td><td class="guo">一' + mw + vn + '</td><td class="pinyin"><em>yī <span id="mwpy">' + mwpy + '</span> ' + vnpy + '</em></td></tr>';
@@ -110,13 +110,13 @@
     }
 
     function htwo(type) {
-      htxt = '量词';
+      htxt = '量詞';
       if (type == "mc") {
-        htxt = '量词搭配';
+        htxt = '量詞搭配';
       } else if (type == "vm") {
-        htxt = '动量词';
+        htxt = '動量詞';
       } else if (type == "vc") {
-        htxt = '动量词搭配';
+        htxt = '動量詞搭配';
       }
 
       out = '<h2>' + htxt + '</h2>\n';
@@ -125,8 +125,8 @@
   </script>
 </head>
 <body onload="window.searchbar.focus();">
-  <h1>量词查询</h1>
-  <input id="searchbar" name="q" type="text" class="search" accesskey="s" placeholder="输入量词、名词、动词、或拼音" autocomplete="off" onkeyup="mwsearch(this.value)" tabindex=1>
+  <h1>量詞查詢</h1>
+  <input id="searchbar" name="q" type="text" class="search" accesskey="s" placeholder="輸入量詞、名詞、動詞、或拼音" autocomplete="off" onkeyup="mwsearch(this.value)" tabindex=1>
 
   <div id="mwoutput" tabindex=2>&nbsp;</div>
   <div id="mcoutput" tabindex=3>&nbsp;</div>
