@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <title>量詞查詢</title>
+    <link rel="stylesheet" type="text/css" href="https://dohliam.github.io/dropin-minimal-css/vendor/picnic.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    body {
+      margin: 10px;
+    }
+    td {
+      padding: 15px;
+    }
+    #output {
+      margin-top: 10px;
+    }
+    #nav {
+      text-align: right;
+      margin-right: 10px;
+    }
+    #lc, #mwpy {
+      font-weight: bold;
+    }
+  </style>
+  <script src="gylc.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    function mwsearch(term) {
+      searchlist(term, mw_list, "mw");
+      searchlist(term, coll_list, "mc");
+      searchlist(term, vm_list, "vm");
+      searchlist(term, vm_coll, "vc");
+    }
+
+    function searchlist(term, dataset, type) {
+      var output = document.getElementById(type + "output");
+      var outlines = new Array();
+
+      var htxt = htwo(type);
+      var headers = fmtheaders(type);
+      var hits = false;
+      outlines.push(htxt + headers);
+
+      if (term == "") {
+        output.innerHTML = "";
+        return;
+      }
+
+      for (var i = 0; i < dataset.length; i++) {
+        var re = new RegExp(term);
+
+        l = dataset[i];
+
+        list = l.split(",");
+        mw = list[0];
+        mwpy = list[1];
+        vn = list[2];
+        vnpy = list[3];
+        yf = vn;
+
+        pyonly = mwpy + " " + vnpy;
+        plainpy = pyonly.replace(/[āáǎà]/g, "a").replace(/[ēéěè]/g, "e").replace(/[īíǐì]/g, "i").replace(/[ōóǒò]/g, "o").replace(/[ūúǔù]/g, "u").replace(/[ǘǚǜ]/g, "v");
+
+        searchtext = list + " " + plainpy;
+
+        if (re.test(searchtext)) {
+          rows = fmtrows(type);
+          outlines.push(rows);
+          hits = true;
+        }
+      }
+      if (hits) {
+        output.innerHTML = outlines.join("\n") + "</table>";
+        window[type + "theaders"].style.display = "";
+      } else {
+        output.innerHTML = "";
+      }
+    }
+
+    function getsrchtxt(list, len) {
+      searchtext = "";
+      for (var n = 0; n < len; n++) {
+        searchtext += ' ' + Object.values(list)[n];
+      }
+      return searchtext;
+    }
+
+    function fmtheaders(type) {
+      header_cols = [];
+      if (type == 'mw' || type == 'vm') {
+        header_cols = ['量詞', '拼音', '用法'];
+      } else if (type == 'mc' || type == 'vc') {
+        header_cols = ['量詞', '詞例', '拼音'];;
+      }
+      header_txt = '<table><tr id="' + type + 'theaders" style="display:none"><th>' + header_cols.join('</th><th>') + '</th></tr>';
+      return header_txt;
+    }
+
+    function fmtrows(type) {
+      row_txt = '';
+      if (type == 'mw' || type == 'vm') {
+        var yfout = (yf == '') ? '' : '用於' + yf;
+        row_txt = '<tr><td class="guo">' + mw + '</td><td class="pinyin"><em>' + mwpy + '</em></td><td class="yf">' + yfout + '</td></tr>';
+      } else if (type == 'mc') {
+        row_txt = '<tr><td class="lc">' + mw + '</td><td class="guo">一' + mw + vn + '</td><td class="pinyin"><em>yī <span id="mwpy">' + mwpy + '</span> ' + vnpy + '</em></td></tr>';
+      } else if (type == 'vc') {
+        row_txt = '<tr><td class="lc">' + mw + '</td><td class="guo">' + vn + '一' + mw + '</td><td class="pinyin"><em>' + vnpy + ' yī <span id="mwpy">' + mwpy + '</span></em></td></tr>';
+      }
+      return row_txt;
+    }
+
+    function htwo(type) {
+      htxt = '量詞';
+      if (type == "mc") {
+        htxt = '量詞搭配';
+      } else if (type == "vm") {
+        htxt = '動量詞';
+      } else if (type == "vc") {
+        htxt = '動量詞搭配';
+      }
+
+      out = '<h2>' + htxt + '</h2>\n';
+      return out;
+    }
+  </script>
+</head>
+<body onload="window.searchbar.focus();">
+  <h1>量詞查詢</h1>
+  <input id="searchbar" name="q" type="text" class="search" accesskey="s" placeholder="輸入量詞、名詞、動詞、或拼音" autocomplete="off" onkeyup="mwsearch(this.value)" tabindex=1>
+
+  <div id="mwoutput" tabindex=2>&nbsp;</div>
+  <div id="mcoutput" tabindex=3>&nbsp;</div>
+  <div id="vmoutput" tabindex=4>&nbsp;</div>
+  <div id="vcoutput" tabindex=5>&nbsp;</div>
+
+</body>
+</html>
