@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <title>Cantonese Tone Dictionary - Look up Cantonese words by tone</title>
+    <link rel="stylesheet" type="text/css" href="https://dohliam.github.io/dropin-minimal-css/vendor/picnic.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    body {
+      margin: 10px;
+    }
+    td {
+      padding: 15px;
+    }
+    h1 {
+      padding-bottom: 0;
+    }
+    h2 {
+      color: lightgray;
+      padding-top: 0;
+    }
+    #output {
+      margin-top: 10px;
+      font-size: x-large;
+    }
+    #nav {
+      text-align: right;
+      margin-right: 10px;
+    }
+    .tc {
+      font-weight: bold;
+    }
+    .py {
+      font-style: italic;
+    }
+    .tone1 {
+      color: #FF4136;
+    }
+    .tone2 {
+      color: #FF851B;
+    }
+    .tone3 {
+      color: #FFDC00;
+    }
+    .tone4 {
+      color: #3D9970;
+    }
+    .tone5 {
+      color: #0074D9;
+    }
+    .tone6 {
+      color: #85144b;
+    }
+    .tone7 {
+      color: #FF4136;
+    }
+    .tone8 {
+      color: #FFDC00;
+    }
+    .tone9 {
+      color: #85144b;
+    }
+    .hlex {
+      font-weight: bold;
+      font-size: 3em;
+    }
+    #highlight {
+      padding: 15px;
+    }
+    .dblue {
+      color: darkblue;
+    }
+
+  </style>
+  <script src="tonedict.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    function initSearch(term) {
+      if ((/^\d/).test(term)) {
+        searchDict("tc", term);
+      } else if ((/^[a-zA-Z]/).test(term)) {
+        searchDict("py", term);
+      } else if ((/^[一-龟]/).test(term)) {
+        searchDict("ch", term);
+      }
+    }
+
+    function searchDict(type, term) {
+      var intro = document.getElementById("intro");
+      var highlight = document.getElementById("highlight");
+      var output = document.getElementById("output");
+
+      var hits = false;
+
+      if (term == "") {
+        output.innerHTML = "";
+        return;
+      }
+
+      for (var i = 0; i < tdict.length; i++) {
+        var re = new RegExp("^" + term + ",");
+
+        if (type == "py") {
+          term = term.replace(/\d/, "");
+          re = new RegExp("#" + term + ",");
+        } else if (type == "ch") {
+          re = new RegExp("," + term + "#");
+        }
+
+        line = tdict[i];
+        if (re.test(line)) {
+          hits = true;
+          table = "<table><tr><th>Tone code</th><th>Chinese word</th><th>Pinyin</th></tr>";
+          entries = line.replace(/,$/, "").split(",");
+          tcode = entries[0];
+
+          if (type == "tc") {
+            r = new RegExp("^[0-9]+,([^#]+)#([^,]+)");
+            matches = line.match(r);
+            ch = matches[1];
+            py = matches[2];
+            printIntro(type, tcode, ch, py);
+          } else if (type == "py") {
+            r = new RegExp(",([^#]+)#" + term + ",");
+            ch = r.exec(line)[1];
+            printIntro(type, tcode, ch, term);
+          } else if (type == "ch") {
+            r = new RegExp("," + term + "#(.*?),");
+            py = r.exec(line)[1];
+            printIntro(type, tcode, term, py);
+          }
+
+          for (n = 1; n < entries.length; n++) {
+            split_entry = entries[n].split("#");
+            ci = split_entry[0];
+            py = split_entry[1];
+            title = "What does this mean? Look up " + ci + " in the Chinese-English dictionary";
+            table += "<tr><td class='tc'>" + tcode + "</td><td class='ci'><a href='http://kaifangcidian.com/han/yue/" + ci + "' title='" + title + "' target='_blank'>" + ci + "</a></td><td class='py'>" + py + "</td></tr>\n";
+          }
+          table += "</table>";
+          output.innerHTML = table;
+        }
+      }
+      if (!hits) {
+        intro.innerHTML = "";
+        highlight.innerHTML = "";
+        output.innerHTML = "";
+      }
+    }
+
+    function printIntro(type, tc, ch, py) {
+      var intro = document.getElementById("intro");
+
+      if (type == "tc") {
+        intro.innerHTML = "<h3>You searched for Tone Code: <span class='dblue'>" + tc + "</span>. An example of a word with this tone code is <span class='dblue'>" + ch + "</span>, which is pronounced <span class='dblue'>" + py + "</span>. Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        printHilight(type, tc, ch, py);
+      } else if (type == "py") {
+        intro.innerHTML = "<h3>You searched for the Pinyin: <span class='dblue'>" + py + "</span>. A match was found with the word: <span class='dblue'>" + ch + "</span>, which has a tone code of <span class='dblue'>" + tc + "</span>. Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        printHilight(type, tc, ch, py);
+      } else if (type == "ch") {
+        intro.innerHTML = "<h3>You searched for the word: " + ch + ", which is pronounced <span class='py'>" + py + "</span> and has a Tone Code of " + tc + ". Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        printHilight(type, tc, ch, py);
+      }
+
+    }
+
+    function colorTone(tc, ch, py) {
+      tc_array = tc.split("");
+      ch_array = ch.split("");
+      py_array = py.split(" ");
+      tc_string = "";
+      ch_string = "";
+      py_string = "";
+
+      tooltip = {"1":"High tone","2":"Rising tone","3":"Low (dipping) tone","4":"Falling tone","5":"Neutral tone"};
+
+      for (i = 0; i < tc_array.length; i++) {
+        t = tc_array[i];
+        c = ch_array[i];
+        p = py_array[i];
+        tc_string += "<span class='hlex tone" + t + "' title='" + tooltip[t] + "'>" + t + "</span>";
+        ch_string += "<span class='hlex tone" + t + "' title='" + tooltip[t] + "'>" + c + "</span>";
+        py_string += "<span class='hlex tone" + t + "' title='" + tooltip[t] + "'>" + p + "</span> ";
+      }
+      out_array = [tc_string, ch_string, py_string];
+      return out_array;
+    }
+
+    function printHilight(type, tc, ch, py) {
+      var intro = document.getElementById("highlight");
+      coltone = colorTone(tc, ch, py);
+      intro.innerHTML = coltone[0] + "<br><a href='http://kaifangcidian.com/han/yue/" + ch + "' target='_blank'>" + coltone[1] + "</a><br>" + coltone[2];
+    }
+  </script>
+</head>
+<body onload="window.searchbar.focus();">
+  <h1>Cantonese Tone Dictionary</h1>
+  <h2>中文声调词典</h2>
+  <input id="searchbar" name="q" type="text" class="search" accesskey="s" placeholder="Input Chinese characters, Pinyin, or Tone code" autocomplete="off" onkeyup="initSearch(this.value)" tabindex=1>
+
+  <div id="intro">&nbsp;</div>
+  <div id="highlight">&nbsp;</div>
+  <div id="output">&nbsp;</div>
+
+</body>
+</html>
