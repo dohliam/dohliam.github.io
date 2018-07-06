@@ -245,14 +245,14 @@ var tips = [
 
 
       function yubComm(nub) {
-        var nublc = nub.toLowerCase().replace(/\s+$/, "");
+        var nublc = nub.toLowerCase().replace(/[\s\+]$/, "");
 
         var finished = "";
 
         var o = document.getElementById("output");
         var y = document.getElementById("yub");
 
-        if (nub == "") {
+        if (nublc == "") {
           o.innerHTML = "Please enter a command.";
           finished = "done";
         }
@@ -297,7 +297,7 @@ var tips = [
         }
 
         var shcut = nublc.replace(/^([>a-z]+) .*/,"$1");
-        var sterm = nub.replace(/^[>A-Za-z]+ (.*)/,"$1");
+        var sterm = nub.replace(/[\s\+]+$/, "").replace(/^[>A-Za-z]+ (.*)/,"$1");
         var stermlc = sterm.toLowerCase();
 
         addr = "";
@@ -811,7 +811,7 @@ var tips = [
         for (var i = 0; i < engines.length; i++) {
           if (engines[i].n == shcut) {
             finished = "done";
-            if (shcut == stermlc && /\s/.test(nub) == false) {
+            if (shcut == stermlc && /\s/.test(nublc) == false) {
               addr = engines[i].f;
               window.location=addr;
             } else {
@@ -1026,7 +1026,7 @@ var tips = [
 
     </script>
   </head>
-  <body onload="var geturl = location.href; if (/\?/.test(geturl) == true) { var args = /\?(.*)/.exec(geturl)[1]; args=/\+/.test(args)?args.replace(/\+/g,' '):args; yubSearch(decodeURIComponent(args)); finished = 'done';}">
+  <body onload="var geturl = location.href; if (/\?/.test(geturl) == true) { var args = /\?(.*)/.exec(geturl)[1]; args=/\+/.test(args)?args.replace(/\+/g,' ').replace(/\s+$/,''):args; yubSearch(decodeURIComponent(args)); finished = 'done';}">
     <center>
     <div id="ybox">
       <h2>yub.js</h2>
