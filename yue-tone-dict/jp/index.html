@@ -96,6 +96,9 @@
         return;
       }
 
+      tc_collector = "";
+      tc_example = "";
+
       for (var i = 0; i < tdict.length; i++) {
         var re = new RegExp("^" + term + ",");
 
@@ -110,6 +113,9 @@
         if (re.test(line)) {
           hits = true;
           table = "<table><tr><th>Tone code</th><th>Cantonese word</th><th>Jyutping</th></tr>";
+          if (tc_collector == "") {
+            tc_collector += table;
+          }
           entries = line.replace(/,$/, "").split(",");
           tcode = entries[0];
 
@@ -118,7 +124,10 @@
             matches = line.match(r);
             ch = matches[1];
             py = matches[2];
-            printIntro(type, tcode, ch, py);
+            if (tc_example == "") {
+              printIntro(type, tcode, ch, py);
+              tc_example = ch;
+            }
           } else if (type == "py") {
             r = new RegExp(",([^#]+)#" + term + ",");
             ch = r.exec(line)[1];
@@ -134,30 +143,47 @@
             ci = split_entry[0];
             py = split_entry[1];
             title = "What does this mean? Look up " + ci + " in the Cantonese dictionary";
-            table += "<tr><td class='tc'>" + tcode + "</td><td class='ci'><a href='http://kaifangcidian.com/han/yue/" + ci + "' title='" + title + "' target='_blank'>" + ci + "</a></td><td class='py'>" + py + "</td></tr>\n";
+            row_data = "<tr><td class='tc'>" + tcode + "</td><td class='ci'><a href='http://kaifangcidian.com/han/yue/" + ci + "' title='" + title + "' target='_blank'>" + ci + "</a></td><td class='py'>" + py + "</td></tr>\n";
+            table += row_data;
+            tc_collector += row_data;
           }
           table += "</table>";
           output.innerHTML = table;
         }
       }
+      if (type == "tc") {
+        tc_collector += "</table>";
+        output.innerHTML = tc_collector;
+      }
       if (!hits) {
-        intro.innerHTML = "";
+        intro.innerHTML = "<h3>No entries found matching \"" + term + "\".</h3>";
         highlight.innerHTML = "";
         output.innerHTML = "";
       }
     }
 
+    function pretty_print_py(tc, py) {
+      var tc_array = tc.split("");
+      var py_array = py.split(" ");
+      var out_py = "";
+      for (p = 0; p < tc_array.length; p++) {
+        out_py += py_array[p] + "<sup>" + tc_array[p] + "</sup>";
+      }
+      return out_py;
+    }
+
     function printIntro(type, tc, ch, py) {
       var intro = document.getElementById("intro");
+      var pretty_py = pretty_print_py(tc, py)
 
       if (type == "tc") {
-        intro.innerHTML = "<h3>You searched for Tone Code: <span class='dblue'>" + tc + "</span>. An example of a word with this tone code is <span class='dblue'>" + ch + "</span>, which is pronounced <span class='dblue'>" + py + "</span>. Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        intro.innerHTML = "<h3>You searched for Tone Code: <span class='dblue'>" + tc + "</span>. An example of a word with this tone code is <span class='dblue'>" + ch + "</span>, which is pronounced <span class='dblue'>" + pretty_py + "</span>. Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
         printHilight(type, tc, ch, py);
       } else if (type == "py") {
-        intro.innerHTML = "<h3>You searched for the Jyutping: <span class='dblue'>" + py + "</span>. A match was found with the word: <span class='dblue'>" + ch + "</span>, which has a tone code of <span class='dblue'>" + tc + "</span>. Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        intro.innerHTML = "<h3>You searched for the Jyutping: <span class='dblue'>" + py + "</span>. A match was found with the word: <span class='dblue'>" + ch + "</span>, which has a tone code of <span class='dblue'>" + tc + "</span> (that is, it is pronounced <span class='dblue'>" + pretty_py + "</span>). Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
         printHilight(type, tc, ch, py);
       } else if (type == "ch") {
-        intro.innerHTML = "<h3>You searched for the word: " + ch + ", which is pronounced <span class='py'>" + py + "</span> and has a Tone Code of " + tc + ". Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
+        intro.innerHTML = "<h3>You searched for the word: " + ch + ", which is pronounced <span class='py'>" + pretty_py + "</span> and has a Tone Code of " + tc + ". Other words with the same tone code are listed below. Click on the characters to look up a translation.</h3>";
         printHilight(type, tc, ch, py);
       }
 
@@ -171,7 +197,7 @@
       ch_string = "";
       py_string = "";
 
-      tooltip = {"1":"High tone","2":"Rising tone","3":"Low (dipping) tone","4":"Falling tone","5":"Neutral tone"};
+      tooltip = {"1":"High level tone","2":"Medium rising tone","3":"Medium level tone","4":"Low falling tone","5":"Low rising tone","6":"Low level tone"};
 
       for (i = 0; i < tc_array.length; i++) {
         t = tc_array[i];
