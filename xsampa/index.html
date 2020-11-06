@@ -3,7 +3,7 @@
     <title>X-SAMPA to IPA Converter</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <link rel="shortcut icon" href="favicon.ico?v=2">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:700,400&display=swap&subset=latin,latin-ext" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="xs.css">
 
@@ -15,9 +15,10 @@
   </head>
 
   <body OnLoad="document.input.textbox.focus(); geturl(); ipa();">
+    <center>
     <div id="container">
       <header class="hd">
-        <span class="h1"><a href="/"><img class="logo" src="logo.png" style="width: 55px"></a>X-SAMPA to IPA Converter</span>
+        <h1><a href="/"><img class="logo" src="logo.png" style="width: 55px"></a>X-SAMPA to IPA Converter</h1>
       </header>
 
       <div id="inputdiv">
@@ -35,22 +36,31 @@
       </div>
 
       <div id="legend">
-        <div class="tooltip" onmouseover="legend()">
-          <h3>X-Sampa guide</h3>
-          <span>
-            <strong>X-SAMPA to IPA conversion guide</strong><br />
-            <div id="ltext">&nbsp;</div>
-          </span>
+        <div class="tooltip" onclick="toggleLegend()">
+          <center>
+            <h3>X-Sampa guide</h3>
+            <span class="legend-box">
+              <h4 class="tooltip-header">X-SAMPA to IPA conversion guide</h4>
+              <div id="ltext">&nbsp;</div>
+            </span>
+          </center>
         </div>
       </div>
 
       <div id="htmldiv">
-        <hr>
         <h2>HTML Output</h2>
 
         <div id="htmlout"></div>
 
       </div>
     </div>
+    <footer>
+      <span class="github-button">
+        <a class="source-link" target="_blank" title="Xsampa.js on Github" href="https://github.com/dohliam/xsampa">
+          <svg class="icon" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.3 6.53 5.47 7.6.4.06.55-.18.55-.4 0-.18 0-.8 0-1.48-2.02.37-2.54-.5-2.7-.94-.1-.23-.48-.94-.82-1.13-.28-.15-.68-.52 0-.53.62 0 1.07.58 1.22.82.72 1.2 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.77-.2-3.63-.9-3.63-3.95 0-.87.3-1.6.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.2 2.2.83.64-.18 1.32-.27 2-.27.68 0 1.36.1 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.93.08 2.13.5.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.3.25.54.73.54 1.48 0 1.08 0 1.94 0 2.2 0 .22.15.47.55.4C13.7 14.52 16 11.52 16 8c0-4.42-3.58-8-8-8z"></path></svg> Source
+        </a>
+      </span>
+    </footer>
+    </center>
   </body>
 </html>
