@@ -1,0 +1,13 @@
+body {
+  margin: 10px;
+}
+td {
+  padding: 15px;
+}
+#output {
+  margin-top: 10px;
+}
+#nav {
+  text-align: right;
+  margin-right: 10px;
+}
