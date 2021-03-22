@@ -7,7 +7,8 @@ td {
 #output {
   margin-top: 10px;
 }
-#nav {
+nav {
   text-align: right;
   margin-right: 10px;
+  float: right;
 }
